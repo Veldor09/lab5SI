@@ -2,6 +2,8 @@
 
 Universidad Nacional, Sede Regional Chorotega – Campus Nicoya.
 
+Repositorio: https://github.com/Veldor09/lab5SI
+
 Proyecto **UNA Chat**: corrección de la vulnerabilidad de inyección de scripts (XSS),
 soporte para URLs de imágenes y videos en el chat, y pruebas unitarias, de integración
 y end-to-end (Playwright).
