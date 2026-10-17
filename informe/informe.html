@@ -27,6 +27,7 @@
   figure { margin: 10px 0 14px; text-align: center; break-inside: avoid; }
   figure img { max-width: 100%; max-height: 15cm; border: 1px solid #c9d2db; }
   figure.alto img { max-height: 19cm; }
+  figure.doble img { max-height: 9.6cm; }
   figcaption { font-size: 9pt; color: #555; margin-top: 4px; font-style: italic; }
   .nota { background: #fff8e5; border-left: 4px solid #e0a800; padding: 6px 10px; margin: 8px 0 12px; font-size: 9.5pt; }
   .ok { background: #eaf7ee; border-left: 4px solid #2e9e57; padding: 6px 10px; margin: 8px 0 12px; font-size: 9.5pt; }
@@ -221,6 +222,17 @@ else {
   <figure>
     <img src="../evidencias/evidencia4_prueba_end_to_end.jpg" alt="Pruebas end-to-end con Playwright">
     <figcaption>Evidencia 4. Pruebas end-to-end en Chromium: 3 de 3 aprobadas (imagen, video y bloqueo del script).</figcaption>
+  </figure>
+
+  <h3>Navegador durante la ejecución (modo <code>--headed</code>)</h3>
+  <p>Con <code>--headed</code>, Playwright abre una ventana visible de Chromium y escribe y envía los mensajes como lo haría un usuario. Las siguientes capturas se tomaron mientras las pruebas corrían, justo después de cada envío, por eso el contenido aparece todavía cargando. La prueba espera hasta que la imagen termina de cargar y el video obtiene sus metadatos antes de darse por aprobada.</p>
+  <figure class="doble">
+    <img src="../evidencias/evidencia4_prueba_end_to_end1.jpg" alt="Chromium durante la prueba de imagen">
+    <figcaption>Evidencia 4 (navegador 1). Chromium controlado por Playwright en <code>localhost:3000</code>: el usuario «Playwright» acaba de enviar la URL de la imagen.</figcaption>
+  </figure>
+  <figure class="doble">
+    <img src="../evidencias/evidencia4_prueba_end_to_end2.jpg" alt="Chromium durante la prueba de video">
+    <figcaption>Evidencia 4 (navegador 2). Prueba del video: el chat muestra el reproductor con controles mientras carga el mp4.</figcaption>
   </figure>
 </div>
 
