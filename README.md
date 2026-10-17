@@ -17,5 +17,6 @@ y end-to-end (Playwright).
 ```bash
 cd despues
 npm install
-npm start
+npm start          # chat en http://localhost:3000
+npm test           # pruebas unitarias (Jest)
 ```

@@ -1,11 +1,25 @@
 {
-  "dependencies": {
-    "express": "*",
-    "mocha": "^10.2.0",
-    "socket.io": "*"
-  },
+  "name": "una-chat",
+  "version": "1.0.0",
+  "private": true,
   "scripts": {
     "start": "node server.js",
-    "test": "mocha"
+    "test": "jest tests/unit --silent",
+    "test:integration": "jest tests/integration --runInBand --env=node"
+  },
+  "dependencies": {
+    "express": "*",
+    "socket.io": "*"
+  },
+  "devDependencies": {
+    "jest": "^30.5.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "verbose": true,
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/tests/e2e/"
+    ]
   }
 }
