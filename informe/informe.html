@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Laboratorio 5 – Seguridad Informática</title>
+<style>
+  @page { size: Letter; margin: 2cm 2cm 2.2cm 2cm; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Calibri, Arial, sans-serif; font-size: 10.5pt; line-height: 1.5; color: #1b1b1b; margin: 0; }
+  h1, h2, h3 { color: #0b3d6e; line-height: 1.25; }
+  h2 { font-size: 15pt; border-bottom: 2px solid #0b3d6e; padding-bottom: 4px; margin: 0 0 10px; }
+  h3 { font-size: 12pt; margin: 16px 0 6px; }
+  p { margin: 0 0 8px; text-align: justify; }
+  ul { margin: 0 0 8px; padding-left: 20px; }
+  li { margin-bottom: 3px; }
+  code { font-family: Consolas, "Courier New", monospace; font-size: 9pt; background: #eef2f6; padding: 1px 4px; border-radius: 3px; }
+  pre { font-family: Consolas, "Courier New", monospace; font-size: 8.4pt; line-height: 1.4; background: #f4f6f8; border: 1px solid #d6dde4; border-left: 4px solid #0b3d6e; padding: 8px 10px; margin: 6px 0 10px; white-space: pre-wrap; break-inside: avoid; }
+  a { color: #0b5cad; }
+  table { width: 100%; border-collapse: collapse; margin: 6px 0 12px; font-size: 9.5pt; break-inside: avoid; }
+  th, td { border: 1px solid #c9d2db; padding: 5px 8px; text-align: left; vertical-align: top; }
+  th { background: #0b3d6e; color: #fff; font-weight: 600; }
+  tr:nth-child(even) td { background: #f5f8fb; }
+  .section { break-before: page; }
+  .continua { margin-top: 22px; }
+  .junto { break-inside: avoid; }
+  h2, h3 { break-after: avoid; }
+  figure { margin: 10px 0 14px; text-align: center; break-inside: avoid; }
+  figure img { max-width: 100%; max-height: 15cm; border: 1px solid #c9d2db; }
+  figure.alto img { max-height: 19cm; }
+  figcaption { font-size: 9pt; color: #555; margin-top: 4px; font-style: italic; }
+  .nota { background: #fff8e5; border-left: 4px solid #e0a800; padding: 6px 10px; margin: 8px 0 12px; font-size: 9.5pt; }
+  .ok { background: #eaf7ee; border-left: 4px solid #2e9e57; padding: 6px 10px; margin: 8px 0 12px; font-size: 9.5pt; }
+
+  /* portada */
+  .portada { height: 23.5cm; display: flex; flex-direction: column; text-align: center; }
+  .portada .inst { font-size: 13pt; font-weight: 600; color: #0b3d6e; letter-spacing: .5px; }
+  .portada .sub { font-size: 11pt; margin-top: 2px; }
+  .portada .titulo { margin-top: 4.2cm; }
+  .portada .titulo .curso { font-size: 15pt; color: #444; }
+  .portada .titulo h1 { font-size: 30pt; margin: 6px 0 4px; }
+  .portada .titulo .tema { font-size: 13pt; color: #333; }
+  .portada .repo { margin: 1.4cm auto 0; padding: 12px 18px; border: 2px solid #0b3d6e; border-radius: 6px; display: inline-block; font-size: 11.5pt; }
+  .portada .repo b { display: block; color: #0b3d6e; margin-bottom: 2px; }
+  .portada .datos { margin-top: auto; font-size: 11pt; line-height: 1.7; }
+  .portada .lugar { margin-top: 14px; color: #555; }
+</style>
+</head>
+<body>
+
+<!-- ====================== PORTADA ====================== -->
+<div class="portada">
+  <div class="inst">UNIVERSIDAD NACIONAL</div>
+  <div class="sub">Sede Regional Chorotega, Campus Nicoya</div>
+  <div class="sub">Carrera: Ingeniería en Sistemas de la Información</div>
+
+  <div class="titulo">
+    <div class="curso">Seguridad Informática</div>
+    <h1>Laboratorio 5</h1>
+    <div class="tema">UNA Chat: prevención de inyección de scripts, URLs de imágenes y videos,<br>pruebas unitarias, de integración y end-to-end</div>
+  </div>
+
+  <div><div class="repo"><b>Repositorio de GitHub</b><a href="https://github.com/Veldor09/lab5SI">https://github.com/Veldor09/lab5SI</a></div></div>
+
+  <div class="datos">
+    <div><b>Estudiante:</b> Diego Araya</div>
+    <div><b>Persona académica:</b> Ing. Alex Villegas Carranza, M.Sc.</div>
+    <div><b>Fecha de clase:</b> viernes 16 de octubre de 2026</div>
+    <div><b>Fecha de entrega:</b> viernes 23 de octubre de 2026</div>
+    <div class="lugar">Costa Rica, Guanacaste, 2026</div>
+  </div>
+</div>
+
+<!-- ====================== INTRODUCCIÓN ====================== -->
+<div class="section">
+  <h2>1. Introducción y estructura del repositorio</h2>
+  <p>En este laboratorio se ejecutó el proyecto <b>UNA Chat</b> (Node.js, Express y Socket.IO), se comprobó que era vulnerable a la inyección de scripts (XSS) y se corrigió la validación de mensajes en la librería <b>una-lib</b>. Además, se agregó la funcionalidad para mostrar imágenes y videos a partir de URLs. El trabajo se verificó con tres tipos de pruebas automatizadas: unitarias, de integración y end-to-end.</p>
+  <p>Todo el código está en el repositorio <a href="https://github.com/Veldor09/lab5SI">https://github.com/Veldor09/lab5SI</a>, organizado así:</p>
+  <table>
+    <tr><th style="width:38%">Ruta</th><th>Contenido</th></tr>
+    <tr><td><code>antes/</code></td><td>Código original y vulnerable de UNA Chat, conservado para reproducir la evidencia 1.</td></tr>
+    <tr><td><code>despues/libs/unalib.js</code></td><td>Librería una-lib con la nueva validación <code>validarMensaje</code>.</td></tr>
+    <tr><td><code>despues/server.js</code></td><td>Backend Express + Socket.IO; valida cada mensaje con una-lib antes de reenviarlo.</td></tr>
+    <tr><td><code>despues/index.html</code></td><td>Frontend del chat.</td></tr>
+    <tr><td><code>despues/tests/unit/</code></td><td>Pruebas unitarias (Jest).</td></tr>
+    <tr><td><code>despues/tests/integration/</code></td><td>Pruebas de integración backend + una-lib (Jest, Supertest y socket.io-client).</td></tr>
+    <tr><td><code>despues/tests/e2e/</code> y <code>playwright.config.js</code></td><td>Pruebas end-to-end con Playwright en Chromium.</td></tr>
+    <tr><td><code>evidencias/</code></td><td>Capturas de pantalla en JPG.</td></tr>
+    <tr><td><code>repositorio.txt</code></td><td>Enlace al repositorio.</td></tr>
+  </table>
+
+  <h3>Comandos para ejecutar el proyecto y las pruebas</h3>
+<pre>cd despues
+npm install
+npx playwright install chromium
+npm start                  # chat en http://localhost:3000
+npm test                   # pruebas unitarias
+npm run test:integration   # npx jest tests/integration --runInBand --env=node
+npm run test:e2e           # npx playwright test --project=chromium --headed
+npx playwright show-report # reporte HTML de Playwright</pre>
+  <p class="nota">En Windows PowerShell, si la política de ejecución bloquea <code>npm</code>, se usa <code>npm.cmd</code> y <code>npx.cmd</code>, como se ve en las capturas.</p>
+</div>
+
+<!-- ====================== PASOS 1-3 ====================== -->
+<div class="section">
+  <h2>2. Ejecución del proyecto y prueba de inyección de scripts (pasos 1 a 3)</h2>
+  <p>Se instalaron las dependencias con <code>npm install</code> y se inició la aplicación original con <code>npm start</code>. El chat quedó disponible en <code>http://localhost:3000</code>. En el campo de mensaje se envió el script del enunciado:</p>
+<pre>&lt;script&gt;alert('Inyección de script');&lt;/script&gt;</pre>
+  <p>El navegador mostró el cuadro de alerta, lo que confirma que <b>la aplicación original es vulnerable a la inyección de scripts</b>. El análisis del código mostró tres causas:</p>
+  <ul>
+    <li>El frontend inserta el mensaje con <code>$('&lt;li&gt;').html(...)</code> de jQuery, que interpreta el texto como HTML y ejecuta las etiquetas <code>&lt;script&gt;</code>.</li>
+    <li><code>validateMessage</code> no escapaba nada: devolvía el texto recibido tal cual, también el nombre de usuario y el color.</li>
+    <li>Las funciones <code>is_valid_url_image</code> e <code>is_valid_yt_video</code> usaban una variable inexistente (<code>phone</code>), por lo que lanzaban un error y nunca reconocían imágenes ni videos.</li>
+  </ul>
+  <figure>
+    <img src="../evidencias/evidencia1_inyeccion_script.jpg" alt="Alerta de inyección de script">
+    <figcaption>Evidencia 1. El script enviado en el chat original se ejecuta y muestra la alerta «Inyección de script».</figcaption>
+  </figure>
+</div>
+
+<!-- ====================== PASOS 4-5 ====================== -->
+<div class="section">
+  <h2>3. URLs de imágenes y videos, y nueva validación en una-lib (pasos 4 y 5)</h2>
+  <p>Las correcciones se hicieron en la carpeta <code>despues/</code>. El método <code>validarMensaje</code> de una-lib (alias en español de <code>validateMessage</code>) ahora recibe el mensaje JSON del cliente y devuelve un objeto seguro para mostrar, con un campo <code>tipo</code> que indica si es <i>texto</i>, <i>imagen</i> o <i>video</i>.</p>
+
+  <h3>Reglas de validación</h3>
+  <table>
+    <tr><th style="width:26%">Entrada</th><th>Tratamiento</th></tr>
+    <tr><td>Texto normal o con HTML</td><td>Se escapan <code>&amp; &lt; &gt; " ' ` /</code>. El script se muestra como texto y no se ejecuta.</td></tr>
+    <tr><td>URL de imagen</td><td>Solo <code>http</code>/<code>https</code>, analizada con <code>new URL()</code>, con extensión <code>jpg, jpeg, png, gif, bmp</code> o <code>webp</code> y sin comillas, espacios ni <code>&lt; &gt;</code>. Se convierte en <code>&lt;img&gt;</code> con la URL escapada.</td></tr>
+    <tr><td>URL de video</td><td>Archivos <code>mp4, webm, ogg</code> → <code>&lt;video controls&gt;</code>. YouTube (<code>youtube.com/watch</code>, <code>youtu.be</code>, <code>/embed/</code>) con un id válido de 11 caracteres → <code>&lt;iframe&gt;</code>.</td></tr>
+    <tr><td>URL no permitida</td><td><code>javascript:</code>, <code>data:</code>, <code>ftp:</code>, dominios falsos de YouTube o extensiones no permitidas se tratan como texto escapado.</td></tr>
+    <tr><td>Nombre de usuario</td><td>Se escapa y se limita a 50 caracteres.</td></tr>
+    <tr><td>Color</td><td>Solo se acepta el formato hexadecimal <code>#RRGGBB</code>; si no, se usa <code>#000000</code>.</td></tr>
+    <tr><td>JSON inválido o vacío</td><td>Se devuelve el contenido escapado o un mensaje vacío.</td></tr>
+  </table>
+
+  <h3>Fragmento de <code>validarMensaje</code> (despues/libs/unalib.js)</h3>
+<pre>var texto = typeof obj.mensaje === 'string' ? obj.mensaje.trim() : '';
+
+if (this.is_valid_url_image(texto)) {
+  result.tipo = 'imagen';
+  result.mensaje = this.getImageTag(texto);      // &lt;img src="URL escapada"&gt;
+}
+else if (this.is_valid_url_video(texto)) {
+  result.tipo = 'video';
+  result.mensaje = this.getVideoTag(texto);      // &lt;video src="..." controls&gt;
+}
+else if (this.is_valid_yt_video(texto)) {
+  result.tipo = 'video';
+  result.mensaje = this.getEmbeddedCode(texto);  // &lt;iframe&gt; de YouTube
+}
+else {
+  result.mensaje = this.escapeHtml(texto);       // texto seguro
+}</pre>
+
+  <div class="junto">
+  <h3>Cambios en el backend y el frontend</h3>
+  <ul>
+    <li><b>server.js:</b> cada mensaje del evento <code>Evento-Mensaje-Server</code> pasa por <code>validation.validarMensaje(msg)</code> antes de reenviarse. El servidor se exporta para poder probarlo, y solo escucha el puerto al ejecutar <code>npm start</code>.</li>
+    <li><b>index.html:</b> el nombre se inserta en su propio elemento, el color se aplica con <code>.css()</code> después de validarlo y el contenido del mensaje, ya saneado por una-lib, se muestra como texto, imagen o reproductor de video.</li>
+  </ul>
+  </div>
+  <div class="ok">Resultado: con la versión corregida, el mismo script del paso 2 aparece como texto literal en el chat y no se abre ninguna alerta. Las URLs de imágenes y videos se muestran directamente en la conversación.</div>
+</div>
+
+<!-- ====================== PASOS 6-8 ====================== -->
+<div class="continua">
+  <h2>4. Pruebas unitarias (pasos 6 a 8)</h2>
+  <p>Primero se ejecutaron las 5 pruebas existentes del proyecto (Mocha), que pasaron. Luego las pruebas se migraron a <b>Jest</b>, la misma herramienta que se usa en las pruebas de integración. Se ampliaron a <b>58 pruebas</b> en <code>despues/tests/unit/unalib.test.js</code>, agrupadas en:</p>
+  <ul>
+    <li><b>Validación de URLs de imágenes:</b> URLs válidas (jpg, png, jpeg con parámetros, webp, bmp) y rechazo de páginas HTML, dobles extensiones, <code>ftp:</code>, <code>javascript:</code>, <code>data:</code>, URLs con comillas o espacios y valores no textuales. También se verifica que la etiqueta <code>&lt;img&gt;</code> generada no tenga manejadores de eventos.</li>
+    <li><b>Validación de URLs de videos:</b> mp4, webm y ogg aceptados; avi, dobles extensiones y URLs con código rechazados. YouTube en sus formatos válidos, y rechazo de ids inválidos, dominios falsos y Vimeo. También se verifica que se genere el reproductor <code>&lt;video controls&gt;</code> o el <code>&lt;iframe&gt;</code>.</li>
+    <li><b>Prevención de inyección de scripts:</b> el script del paso 2 y cargas como <code>&lt;img onerror&gt;</code>, <code>&lt;svg onload&gt;</code>, <code>&lt;iframe src="javascript:"&gt;</code>, <code>&lt;a href="javascript:"&gt;</code> y <code>&lt;body onload&gt;</code>. También el nombre de usuario malicioso, el color inválido, el JSON inválido y las entradas vacías.</li>
+  </ul>
+  <p>Comando: <code>npm test</code> (ejecuta <code>jest tests/unit</code>; la carpeta <code>tests/e2e</code> está en <code>testPathIgnorePatterns</code>).</p>
+  <figure class="alto">
+    <img src="../evidencias/evidencia2_pruebas_unitarias_1.jpg" alt="Pruebas unitarias, parte 1">
+    <figcaption>Evidencia 2 (parte 1). Ejecución de <code>npm test</code>: pruebas de teléfono, imágenes y videos.</figcaption>
+  </figure>
+  <figure class="alto">
+    <img src="../evidencias/evidencia2_pruebas_unitarias_2.jpg" alt="Pruebas unitarias, parte 2">
+    <figcaption>Evidencia 2 (parte 2). Pruebas de prevención de inyección de scripts y resumen: 58 de 58 aprobadas.</figcaption>
+  </figure>
+</div>
+
+<!-- ====================== PASO 9 ====================== -->
+<div class="section">
+  <h2>5. Pruebas de integración (paso 9)</h2>
+  <p>El chat no envía los mensajes por una ruta HTTP sino por <b>Socket.IO</b>, con el evento <code>Evento-Mensaje-Server</code>. Por eso, como indica el enunciado, se instaló <code>socket.io-client</code> además de <code>jest</code> y <code>supertest</code>:</p>
+<pre>npm install --save-dev jest supertest socket.io-client</pre>
+  <p>El archivo <code>despues/tests/integration/chat.test.js</code> levanta el servidor real en un puerto libre y se conecta como lo haría el navegador. Con <code>jest.spyOn</code> se comprueba que el backend llama realmente a <code>validarMensaje</code> de una-lib. Al terminar, se cierran los clientes y el servidor (<code>io.close()</code>). Casos cubiertos:</p>
+  <table>
+    <tr><th style="width:42%">Caso</th><th>Qué se verifica</th></tr>
+    <tr><td>GET <code>/</code> con Supertest</td><td>Código 200, tipo <code>text/html</code> y la página del chat.</td></tr>
+    <tr><td>URL de imagen válida</td><td>El backend la acepta: <code>tipo: "imagen"</code> y etiqueta <code>&lt;img&gt;</code>; <code>validarMensaje</code> se llamó una vez.</td></tr>
+    <tr><td>URL de video válida (mp4)</td><td>El backend la acepta: <code>tipo: "video"</code> y reproductor <code>&lt;video controls&gt;</code>.</td></tr>
+    <tr><td>Video de YouTube</td><td>Se devuelve el <code>&lt;iframe&gt;</code> con el id correcto.</td></tr>
+    <tr><td>Script del paso 2</td><td>Se devuelve saneado como texto, sin <code>&lt;script</code>.</td></tr>
+    <tr><td>URL no permitida (<code>javascript:</code>)</td><td>No se convierte en etiqueta; queda como texto sin <code>&lt; &gt;</code>.</td></tr>
+    <tr><td>Nombre de usuario con HTML</td><td>El nombre se devuelve escapado.</td></tr>
+  </table>
+  <p>Comando: <code>npx jest tests/integration --runInBand --env=node</code></p>
+  <figure>
+    <img src="../evidencias/evidencia3_pruebas_integracion.jpg" alt="Pruebas de integración">
+    <figcaption>Evidencia 3. Pruebas de integración backend + una-lib: 7 de 7 aprobadas.</figcaption>
+  </figure>
+</div>
+
+<!-- ====================== PASO 10 ====================== -->
+<div class="section">
+  <h2>6. Pruebas end-to-end con Playwright (paso 10)</h2>
+  <p>Se configuró Playwright en <code>despues/</code> con JavaScript, la carpeta <code>tests/e2e</code> y el navegador Chromium. En <code>playwright.config.js</code> se definió <code>testDir: './tests/e2e'</code> y <code>use.baseURL: 'http://localhost:3000'</code>, que es la URL real del frontend. La opción <code>webServer</code> reutiliza el servidor si ya está iniciado con <code>npm start</code>. Las pruebas corren con un solo worker porque el chat reenvía cada mensaje a todos los clientes conectados.</p>
+  <p>El archivo <code>despues/tests/e2e/chat.spec.js</code> usa <code>page.goto</code>, <code>getByRole</code>, <code>fill</code>, <code>click</code> y <code>expect</code> para tres casos:</p>
+  <ul>
+    <li><b>Imagen:</b> envía una URL de Wikimedia y verifica que el <code>&lt;img&gt;</code> es visible y que terminó de cargar (<code>complete</code> y <code>naturalWidth &gt; 0</code>).</li>
+    <li><b>Video:</b> envía un mp4 de MDN y verifica que aparece el reproductor con controles y que cargó el contenido (<code>readyState ≥ 1</code> y duración mayor que 0).</li>
+    <li><b>Script del paso 2:</b> registra <code>page.on("dialog")</code> antes del envío. La prueba falla si aparece cualquier alerta. Además comprueba que el mensaje se muestra como texto literal y que no se insertó ningún <code>&lt;script&gt;</code>.</li>
+  </ul>
+  <p class="nota">Como control, la prueba del script se ejecutó también contra la versión original (<code>antes/</code>) y <b>falló</b>, como se esperaba. Así se confirma que la prueba detecta la vulnerabilidad y que pasa solo con la corrección.</p>
+  <p>Comando: <code>npx playwright test --project=chromium --headed</code></p>
+  <figure>
+    <img src="../evidencias/evidencia4_prueba_end_to_end.jpg" alt="Pruebas end-to-end con Playwright">
+    <figcaption>Evidencia 4. Pruebas end-to-end en Chromium: 3 de 3 aprobadas (imagen, video y bloqueo del script).</figcaption>
+  </figure>
+</div>
+
+<!-- ====================== CONCLUSIÓN ====================== -->
+<div class="section">
+  <h2>7. Resumen de resultados y conclusiones</h2>
+  <table>
+    <tr><th>Suite</th><th>Herramientas</th><th>Comando</th><th>Resultado</th></tr>
+    <tr><td>Unitarias</td><td>Jest</td><td><code>npm test</code></td><td><b>58 / 58</b> aprobadas</td></tr>
+    <tr><td>Integración</td><td>Jest, Supertest, socket.io-client</td><td><code>npm run test:integration</code></td><td><b>7 / 7</b> aprobadas</td></tr>
+    <tr><td>End-to-end</td><td>Playwright (Chromium)</td><td><code>npm run test:e2e</code></td><td><b>3 / 3</b> aprobadas</td></tr>
+  </table>
+  <ul>
+    <li>La aplicación original ejecutaba cualquier script enviado por un usuario. Como el chat reenvía los mensajes a todos los conectados, un atacante podía ejecutar código en el navegador de todos los demás usuarios (XSS almacenado y distribuido).</li>
+    <li>La corrección principal es validar en el servidor: todo el texto se escapa y solo se convierten en HTML las URLs que cumplen reglas estrictas (protocolo, extensión y caracteres permitidos). El HTML de imágenes y videos lo genera la propia librería, nunca el usuario.</li>
+    <li>Las tres suites se complementan. Las unitarias prueban la lógica de una-lib. Las de integración confirman que el backend usa esa lógica en el evento real de Socket.IO. Las end-to-end demuestran en un navegador real que el usuario ve las imágenes y videos y que el script ya no se ejecuta.</li>
+  </ul>
+  <p>Código fuente, pruebas y configuración: <a href="https://github.com/Veldor09/lab5SI">https://github.com/Veldor09/lab5SI</a></p>
+</div>
+
+</body>
+</html>
