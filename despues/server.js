@@ -18,7 +18,7 @@ io.on('connection', function(socket){
   // si se escucha "chat message"
   socket.on('Evento-Mensaje-Server', function(msg){
 
-    msg =  validation.validateMessage(msg);
+    msg =  validation.validarMensaje(msg);
     // volvemos a emitir el mismo mensaje
     io.emit('Evento-Mensaje-Server', msg);
   });
