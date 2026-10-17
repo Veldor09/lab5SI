@@ -8,13 +8,14 @@ y end-to-end (Playwright).
 
 ## Estructura
 
-- `antes/` – código original del proyecto UNA Chat.
+- `antes/` – código original (vulnerable) del proyecto UNA Chat, para la evidencia 1.
+- `despues/` – UNA Chat corregido: validación anti-XSS en una-lib e imágenes/videos por URL.
 - `evidencias/` – capturas de pantalla (JPG) para la entrega.
 
 ## Ejecución
 
 ```bash
-cd antes
+cd despues
 npm install
 npm start
 ```
